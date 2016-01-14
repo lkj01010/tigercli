@@ -28,13 +28,15 @@
 //////////////////////////////////////////////////////////////////////////////////////
 
 class Main extends eui.UILayer {
-    /**
-     * 加载进度界面
-     * loading process interface
-     */
+
     private loadingView: LoadingUI;
+    public static sceneManager: game.SceneManager;
+    
+    
     protected createChildren(): void {
         super.createChildren();
+        
+        Main.sceneManager = new game.SceneManager(this);
         //inject the custom material parser
         //注入自定义的素材解析器
         var assetAdapter = new AssetAdapter();
@@ -64,7 +66,7 @@ class Main extends eui.UILayer {
         RES.addEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onResourceLoadError, this);
         RES.addEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onResourceProgress, this);
         RES.addEventListener(RES.ResourceEvent.ITEM_LOAD_ERROR, this.onItemLoadError, this);
-        RES.loadGroup("preload");
+        RES.loadGroup("group1");
     }
     private isThemeLoadEnd: boolean = false;
     /**
@@ -81,7 +83,7 @@ class Main extends eui.UILayer {
      * preload resource group is loaded
      */
     private onResourceLoadComplete(event:RES.ResourceEvent):void {
-        if (event.groupName == "preload") {
+        if (event.groupName == "group1") {
             this.stage.removeChild(this.loadingView);
             RES.removeEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onResourceLoadComplete, this);
             RES.removeEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onResourceLoadError, this);
@@ -95,6 +97,7 @@ class Main extends eui.UILayer {
         if(this.isThemeLoadEnd && this.isResourceLoadEnd){
             this.startCreateScene();
         }
+  
     }
     /**
      * 资源组加载出错
@@ -119,7 +122,7 @@ class Main extends eui.UILayer {
      * loading process of preload resource
      */
     private onResourceProgress(event:RES.ResourceEvent):void {
-        if (event.groupName == "preload") {
+        if (event.groupName == "group1") {
             this.loadingView.setProgress(event.itemsLoaded, event.itemsTotal);
         }
     }
@@ -128,12 +131,14 @@ class Main extends eui.UILayer {
      * Create scene interface
      */
     protected startCreateScene(): void {
-        var button = new eui.Button();
-        button.label = "Click!";
-        button.horizontalCenter = 0;
-        button.verticalCenter = 0;
-        this.addChild(button);
-        button.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onButtonClick, this);
+//        var button = new eui.Button();
+//        button.label = "Click!";
+//        button.horizontalCenter = 0;
+//        button.verticalCenter = 0;
+//        this.addChild(button);
+//        button.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onButtonClick, this);
+        var e: egret.Event = new egret.Event(game.GameEvent.changeScene_table);
+        this.dispatchEvent(e);
     }
 
     private onButtonClick(e: egret.TouchEvent) {

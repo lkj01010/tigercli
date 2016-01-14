@@ -1,2 +1,2 @@
-declare class tableSkin extends eui.Skin{
+declare class TableBg extends eui.Skin{
 }

@@ -36,6 +36,7 @@ var Main = (function (_super) {
     var d = __define,c=Main,p=c.prototype;
     p.createChildren = function () {
         _super.prototype.createChildren.call(this);
+        Main.sceneManager = new game.SceneManager(this);
         //inject the custom material parser
         //注入自定义的素材解析器
         var assetAdapter = new AssetAdapter();
@@ -64,7 +65,7 @@ var Main = (function (_super) {
         RES.addEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onResourceLoadError, this);
         RES.addEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onResourceProgress, this);
         RES.addEventListener(RES.ResourceEvent.ITEM_LOAD_ERROR, this.onItemLoadError, this);
-        RES.loadGroup("preload");
+        RES.loadGroup("group1");
     };
     /**
      * 主题文件加载完成,开始预加载
@@ -79,7 +80,7 @@ var Main = (function (_super) {
      * preload resource group is loaded
      */
     p.onResourceLoadComplete = function (event) {
-        if (event.groupName == "preload") {
+        if (event.groupName == "group1") {
             this.stage.removeChild(this.loadingView);
             RES.removeEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onResourceLoadComplete, this);
             RES.removeEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onResourceLoadError, this);
@@ -117,7 +118,7 @@ var Main = (function (_super) {
      * loading process of preload resource
      */
     p.onResourceProgress = function (event) {
-        if (event.groupName == "preload") {
+        if (event.groupName == "group1") {
             this.loadingView.setProgress(event.itemsLoaded, event.itemsTotal);
         }
     };
@@ -126,12 +127,14 @@ var Main = (function (_super) {
      * Create scene interface
      */
     p.startCreateScene = function () {
-        var button = new eui.Button();
-        button.label = "Click!";
-        button.horizontalCenter = 0;
-        button.verticalCenter = 0;
-        this.addChild(button);
-        button.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onButtonClick, this);
+        //        var button = new eui.Button();
+        //        button.label = "Click!";
+        //        button.horizontalCenter = 0;
+        //        button.verticalCenter = 0;
+        //        this.addChild(button);
+        //        button.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onButtonClick, this);
+        var e = new egret.Event(game.GameEvent.changeScene_table);
+        this.dispatchEvent(e);
     };
     p.onButtonClick = function (e) {
         var panel = new eui.Panel();

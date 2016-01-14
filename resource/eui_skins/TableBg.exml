@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <e:Skin class="TableBg" width="1024" height="640" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
 	<e:Image source="bg_jpg" left="0" right="0" top="0" bottom="0" locked="true"/>
-	<e:Group height="200" width="200" x="189" y="474">
+	<e:Group id="yayi" height="200" width="200" x="189" y="474" locked="true">
 		<e:Button horizontalCenter="0" verticalCenter="0">
 			<e:skinName>
 				<e:Skin states="up,down,disabled">
@@ -12,7 +12,7 @@
 		</e:Button>
 		<e:BitmapLabel font="font1_fnt" text="押一" horizontalCenter="0.5" verticalCenter="-6"/>
 	</e:Group>
-	<e:Group width="200" y="474" height="200" x="401">
+	<e:Group id="xuanzhuan" width="200" y="474" height="200" x="401" locked="true">
 		<e:Button horizontalCenter="0" verticalCenter="0">
 			<e:skinName>
 				<e:Skin states="up,down,disabled" xmlns:w="http://ns.egret.com/wing">
@@ -24,7 +24,7 @@
 		<e:BitmapLabel horizontalCenter="0.5" verticalCenter="-6" text="旋转" font="font1_fnt"/>
 	</e:Group>
 	<e:Group width="200" y="474" height="200" x="613">
-		<e:Button horizontalCenter="0" verticalCenter="0">
+		<e:Button id="quanya" horizontalCenter="0" verticalCenter="0">
 			<e:skinName>
 				<e:Skin states="up,down,disabled" xmlns:w="http://ns.egret.com/wing">
 					<e:Image width="100%" height="100%" source="bt_png"/>
@@ -32,6 +32,36 @@
 				</e:Skin>
 			</e:skinName>
 		</e:Button>
-		<e:BitmapLabel horizontalCenter="0.5" verticalCenter="-6" text="全压" font="font1_fnt"/>
+		<e:BitmapLabel horizontalCenter="0.5" verticalCenter="-6" text="全押" font="font1_fnt"/>
+	</e:Group>
+	<e:Group y="155" x="299" width="200" height="200">
+		<e:Button id="bet_sub" verticalCenter="0" horizontalCenter="0">
+			<e:skinName>
+				<e:Skin states="up,down,disabled">
+					<e:Image width="100%" height="100%" source="bt_l_png" source.down="4_png"/>
+					<e:Label id="labelDisplay0" horizontalCenter="0" verticalCenter="0"/>
+				</e:Skin>
+			</e:skinName>
+		</e:Button>
+		<e:BitmapLabel id="lb" text="-" font="font1_fnt" x="100" y="72"/>
+	</e:Group>
+	<e:Group y="155" x="513" width="200" height="200">
+		<e:Button id="bet_add" horizontalCenter="0" verticalCenter="0">
+			<e:skinName>
+				<e:Skin states="up,down,disabled">
+					<e:Image width="100%" height="100%" source="bt_r_png"/>
+					<e:Label id="labelDisplay1" horizontalCenter="0" verticalCenter="0"/>
+				</e:Skin>
+			</e:skinName>
+		</e:Button>
+		<e:BitmapLabel y="74" text="+" font="font1_fnt" x="80"/>
+	</e:Group>
+	<e:BitmapLabel id="bet" y="29" font="font1_fnt" text="$0.2" horizontalCenter="-336"/>
+	<e:BitmapLabel id="winbet" y="121" text="$0.2" font="font1_fnt" horizontalCenter="-332"/>
+	<e:BitmapLabel id="betAdjust" y="235" text="$0.2" font="font1_fnt" x="473"/>
+	<e:Group id="card_grp1" height="188" width="150" x="261" y="316">
+		<e:layout>
+			<e:BasicLayout/>
+		</e:layout>
 	</e:Group>
 </e:Skin>
