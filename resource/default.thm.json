@@ -1,7 +1,9 @@
 {
   "autoGenerateExmlsList": true,
   "exmls": [
-    "resource/eui_skins/TableBg.exml"
+    "resource/eui_skins/TableBg.exml",
+    "resource/fl_skins/doorSkin.exml",
+    "resource/fl_skins/tableSkin.exml"
   ],
   "skins": {
     "eui.Button": "resource/eui_skins/ButtonSkin.exml",
