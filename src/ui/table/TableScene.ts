@@ -1,4 +1,4 @@
-module game {
+module fl {
 	/**
 	 *
 	 * @author 
@@ -7,6 +7,10 @@ module game {
 	class TableSceneConst {
         public static cardh: number = 90;
         public static cardw: number = 20;
+        public static cardnum: number = 8;
+        
+        public static totalTime: number = 8*1000;
+        public static cardsCross: number = 50;
 	}
 	
     export class TableScene extends eui.Component {
@@ -21,6 +25,12 @@ module game {
         private card_grp1: eui.Group;
         
         private card_cache1: Array<eui.Image> = [];
+        
+        private card_indexs: Array<number> = [];
+        
+        //motion
+        private startTime: number = 0;
+        private isRun: boolean = false;
         
         
         public constructor() {
@@ -43,10 +53,12 @@ module game {
             this.quanya.parent.getChildAt(1).touchEnabled = false;
             
             this.createCards();
+            this.genCardIndex();
             
             this.addEventListener(egret.Event.ENTER_FRAME,this.onEnterFrame,this);
             // runtime:
             this.betAdjust.text = "$" + TableData.betAdjust;
+            
         }
         
         
@@ -80,12 +92,62 @@ module game {
         }
         
         
-        
+        private genCardIndex(){
+            this.card_indexs = [7,1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8,
+                1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8,1,2,3]; //比cross大2
+            
+        }
         
         
         private onEnterFrame(e: egret.Event){
             var time: number = egret.getTimer();
-            egret.log("" + time);
+            
+            
+            if(this.isRun){
+                var runTime = time - this.startTime;
+                var outerCross;
+                if(runTime < TableSceneConst.totalTime){
+                    
+                    var cross;
+                    var aveSpeed = TableSceneConst.cardsCross / TableSceneConst.totalTime;
+                    var maxSpeed = aveSpeed * 2;
+                    var acc = maxSpeed / (TableSceneConst.totalTime * 0.5);
+
+                    if(runTime < TableSceneConst.totalTime/2) {
+                        cross = (acc * runTime) * runTime / 2;
+                    }
+                    else {
+                        var afterHalfTime = (runTime - TableSceneConst.totalTime / 2);
+                        cross = TableSceneConst.cardsCross / 2 +
+                            (maxSpeed + maxSpeed - acc * afterHalfTime) * 0.5 * afterHalfTime;
+                    }
+                    
+                    // 初始跨过半张牌就变牌
+                    cross += 0.5;
+                    var innerCross = cross - Math.floor(cross);
+                    
+                    outerCross = Math.floor(cross);
+                    var crossDist = TableSceneConst.cardh * innerCross;
+                   
+                    {
+                        this.card_cache1[0].y = crossDist - TableSceneConst.cardh/2;
+                        this.card_cache1[1].y = crossDist - TableSceneConst.cardh / 2+ TableSceneConst.cardh;
+                        this.card_cache1[2].y = crossDist - TableSceneConst.cardh / 2+ TableSceneConst.cardh * 2;
+                        
+                        
+                    }
+                    
+                }
+                else{
+                    this.isRun = false;
+                    outerCross = TableSceneConst.cardsCross;
+                }
+                
+                
+                this.card_cache1[0].source = "" + this.card_indexs[outerCross + 1] + "_png";
+                this.card_cache1[1].source = "" + this.card_indexs[outerCross] + "_png";
+                this.card_cache1[2].source = "" + this.card_indexs[outerCross - 1] + "_png";
+            }
         }
         
         
@@ -102,9 +164,18 @@ module game {
         }
         private cb_yayi(e: egret.TouchEvent) {
             egret.log("cb_sub");
+            
+            egret.Tween.get(this.card_cache1[0]).to({}, 2000).to({ alpha: 0 },300).to({ alpha: 1 }, 300).call(
+                ()=>{
+//                    egret.Tween.get(this.card_cache1[1],{ loop: true }).to({ alpha: 0, x: 100 },300).to({ alpha: 1 , x: 200},300);
+                }
+            );
         }
         private cb_xuanzhuan(e: egret.TouchEvent) {
             egret.log("cb_sub");
+            
+            this.startTime = egret.getTimer();
+            this.isRun = true;
         }
         private cb_quanya(e: egret.TouchEvent) {
             egret.log("cb_sub");

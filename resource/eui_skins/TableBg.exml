@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<e:Skin class="TableBg" width="1024" height="640" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+<e:Skin class="TableBg" width="1024" height="640" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:game="game.*">
 	<e:Image source="bg_jpg" left="0" right="0" top="0" bottom="0" locked="true"/>
 	<e:Group id="yayi" height="200" width="200" x="189" y="474" locked="true">
 		<e:Button horizontalCenter="0" verticalCenter="0">

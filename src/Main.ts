@@ -30,13 +30,13 @@
 class Main extends eui.UILayer {
 
     private loadingView: LoadingUI;
-    public static sceneManager: game.SceneManager;
+    public static sceneManager: SceneManager;
     
     
     protected createChildren(): void {
         super.createChildren();
         
-        Main.sceneManager = new game.SceneManager(this);
+        Main.sceneManager = new SceneManager(this);
         //inject the custom material parser
         //注入自定义的素材解析器
         var assetAdapter = new AssetAdapter();
@@ -137,8 +137,8 @@ class Main extends eui.UILayer {
 //        button.verticalCenter = 0;
 //        this.addChild(button);
 //        button.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onButtonClick, this);
-        var e: egret.Event = new egret.Event(game.GameEvent.changeScene_table);
-        this.dispatchEvent(e);
+        var e: egret.Event = new egret.Event(fl.Event.changeScene_table);
+        this.dispatchEvent(e);        
     }
 
     private onButtonClick(e: egret.TouchEvent) {

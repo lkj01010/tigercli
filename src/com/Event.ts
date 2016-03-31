@@ -1,10 +1,10 @@
-module game {
+module fl {
 	/**
 	 *
 	 * @author 
 	 *
 	 */
-    export class GameEvent{
+    export class Event{
         public static changeScene_table: string = "changeScene_table";
 	}
 }

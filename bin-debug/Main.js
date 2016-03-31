@@ -36,7 +36,7 @@ var Main = (function (_super) {
     var d = __define,c=Main,p=c.prototype;
     p.createChildren = function () {
         _super.prototype.createChildren.call(this);
-        Main.sceneManager = new game.SceneManager(this);
+        Main.sceneManager = new SceneManager(this);
         //inject the custom material parser
         //注入自定义的素材解析器
         var assetAdapter = new AssetAdapter();
@@ -133,7 +133,7 @@ var Main = (function (_super) {
         //        button.verticalCenter = 0;
         //        this.addChild(button);
         //        button.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onButtonClick, this);
-        var e = new egret.Event(game.GameEvent.changeScene_table);
+        var e = new egret.Event(fl.Event.changeScene_table);
         this.dispatchEvent(e);
     };
     p.onButtonClick = function (e) {
